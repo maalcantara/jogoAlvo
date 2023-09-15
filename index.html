@@ -1,4 +1,5 @@
-<canvas width="1000" height="700"></canvas>
+<link rel="icon" href="alvo.png">
+<canvas width="1690" height="750"></canvas>
 
 <script>
 
@@ -6,71 +7,58 @@
     var pincel = tela.getContext("2d");
 
     pincel.fillStyle = "lightgray";
-    pincel.fillRect(0, 0, 1000, 700);
+    pincel.fillRect(0, 0, 1690, 750);
 
     var raio = 10;
     var xAleatorio;
     var yAleatorio;
-        //deixar as variáveis sem valor para acessar seu valor em qualquer função -> functionDispara()
-    
-        function desenhaCirculo(x, y, raio, cor) {
+    //deixar as variáveis sem valor para acessar seu valor em qualquer função -> functionDispara()
 
+    function desenhaCirculo(x, y, raio, cor) {
         pincel.fillStyle = cor;
         pincel.beginPath();
         pincel.arc(x, y, raio, 0, 2 * Math.PI);
         pincel.fill();
-
     }
 
     function limpaTela() {
-
-        pincel.clearRect(0, 0, 1000, 700);
-
+        pincel.clearRect(0, 0, 1690, 750);
     }
 
     function desenhaAlvo(x,y) {
-                //ordem para desenhar os círculos do maior para menor -> sobreposição
         desenhaCirculo(x, y, raio+20, "red");
         desenhaCirculo(x, y, raio+10, "white");
         desenhaCirculo(x, y, raio, "red");
-
     }
 
     function sorteiaPosicao(maximo) {
-
         return Math.floor(Math.random() * maximo);
-
     }
 
     function atualizaTela() {
-                //função para limpar a tela do alvo que apareceu para aparecer outro
         limpaTela();
-        xAleatorio = sorteiaPosicao(1000);
-        yAleatorio = sorteiaPosicao(700);
+        xAleatorio = sorteiaPosicao(1690);
+        yAleatorio = sorteiaPosicao(750);
         desenhaAlvo(xAleatorio, yAleatorio);
     }
 
-    setInterval(atualizaTela, 1000);
-        //definir um intervalo de tempo para executar a função novamente.
+    //definir um intervalo de tempo para executar a função novamente.
+    setInterval(atualizaTela, 900);
 
-    function dispara(evento) { 
-                //função executada ao clique do botão
-                //variáveis para saber a posição X e Y que a pessoa clicou:
+    function dispara(evento) { //função executada ao clique do botão
+
+        //variáveis para saber a posição X e Y que a pessoa clicou:
         var x = evento.pageX - tela.offsetLeft;
         var y = evento.pageY - tela.offsetTop;
 
-        if((x > xAleatorio - raio) //condições para o acerto do clique
+        //condições para o acerto do clique
+        if((x > xAleatorio - raio)
         && (x < xAleatorio + raio)
         && (y > yAleatorio - raio)
-        && (y < yAleatorio + raio)) {
-
+        && (y < yAleatorio + raio)) 
+        {
             alert("Acertou!");
-
         }
-
-
     }
-
     tela.onclick = dispara;
-
 </script>
